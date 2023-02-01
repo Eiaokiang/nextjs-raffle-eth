@@ -1,9 +1,9 @@
 require("@nomicfoundation/hardhat-toolbox");
 // require('hardhat-deploy');
 require ( "hardhat-gas-reporter" ) ;
-require ('@openzeppelin/hardhat-upgrades');
+// require ('@openzeppelin/hardhat-upgrades');
 require('dotenv').config();
-require("@nomiclabs/hardhat-solhint");
+// require("@nomiclabs/hardhat-solhint");
 
 const { ETHERSCAN_API_KEY,ACCOUNT_PRIVATE_KEY,COINMARKETCAP_API_KEY,GAS_TOKEN,GAS_COST_ENABLE,GAS_TO_CURRENCY,GAS_PRICE_API} = process.env
 
