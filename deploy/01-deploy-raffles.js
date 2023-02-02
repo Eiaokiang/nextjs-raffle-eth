@@ -1,13 +1,15 @@
 const { network } = require("hardhat");
 const { networkConfig } = require("../helper-hardhat-config");
 
+const FUND_AMOUNT = ethers.utils.parseEther("1");
+
 module.exports = async function ({ getNamedAccounts, deployments }) {
   const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
 
   const chainId = network.config.chainId;
   let vrfCoordinatorV2Address, subscriptionId, vrfCoordinatorV2Mock;
-  
+
   if (chainId == 31337) {
     // create VRFV2 Subscription
     vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock");
@@ -34,8 +36,19 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 
   const raffle = await deploy("Raffle", {
     from: deployer,
-    args: [],
+    args: arguments,
     log: true,
-    watiConfirmations: 1,
+    watiConfirmations: 6,
   });
+
+  if (chainId == 31337) {
+    const vrfCoordinatorV2Mock = await ethers.getContract(
+      "VRFCoordinatorV2Mock"
+    );
+    await vrfCoordinatorV2Mock.addConsumer(subscriptionId, raffle.address);
+  }
+
+  log("----------------------------------------------------");
 };
+
+module.exports.tags = ["all", "raffle"];
