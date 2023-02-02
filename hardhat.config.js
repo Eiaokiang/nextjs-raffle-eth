@@ -31,13 +31,11 @@ module.exports = {
   },
   namedAccounts: {
     deployer: {
-      default: 0
+      default: 0, // here this will by default take the first account as deployer
+      1: 0, // similarly on mainnet it will take the first account as deployer. Note though that depending on how hardhat network are configured, the account 0 on one network can be different than on another
     },
-    addr1: {
-      default: 1
-    },
-    addr2: {
-      default: 2
+    player: {
+      default: 1,
     },
   },
   etherscan:{
@@ -58,5 +56,8 @@ module.exports = {
     currency: "CNY",
     coinmarketcap: "4fbc599d-5675-4e94-831b-0b3e79e806a7",
     token: "ETH",
+  },
+  mocha: {
+    timeout: 500000, // 500 seconds max for running tests
   },
 };
